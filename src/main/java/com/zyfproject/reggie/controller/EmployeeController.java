@@ -85,6 +85,29 @@ public class EmployeeController {
         Page pageInfo = new Page(page, pageSize);
         LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper();
         queryWrapper.like(StringUtils.isNotEmpty(name), Employee::getName, name);
-        return null;
+        // 排序条件
+        queryWrapper.orderByDesc(Employee::getUpdateTime);
+
+        // 执行查询
+        employeeService.page(pageInfo,queryWrapper);
+
+        return R.success(pageInfo);
+    }
+
+    /**
+     *
+     * 根据id修改员工信息
+     * @param employee
+     * @return
+     */
+    @PutMapping
+    public R<String> update(HttpServletRequest request, @RequestBody Employee employee){
+        log.info(employee.toString());
+
+        Long empId = (Long) request.getSession().getAttribute("employee");
+        employee.setUpdateTime(LocalDateTime.now());
+        employee.setUpdateUser(empId);
+        employeeService.updateById(employee);
+        return R.success("员工信息修改成功");
     }
 }
