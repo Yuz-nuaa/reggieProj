@@ -45,6 +45,8 @@ public class LoginCheckFilter implements Filter {
         // 判断登陆状态
         if(request.getSession().getAttribute("employee") != null){
             log.info("User has login:{}", requestURI);
+            long id = Thread.currentThread().getId();
+            log.info("Thread id is: {}", id);
             filterChain.doFilter(request, response);
             return;
         }

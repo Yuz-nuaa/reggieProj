@@ -68,11 +68,11 @@ public class EmployeeController {
         log.info("新增员工信息，员工信息：{}",employee.toString());
 
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setCreateTime(LocalDateTime.now());
-        Long empId = (Long) request.getSession().getAttribute("employee");
-        employee.setCreateUser(empId);
-        employee.setUpdateUser(empId);
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setCreateTime(LocalDateTime.now());
+//        Long empId = (Long) request.getSession().getAttribute("employee");
+//        employee.setCreateUser(empId);
+//        employee.setUpdateUser(empId);
         employeeService.save(employee);
         return R.success("新增一条员工信息成功");
     }
@@ -105,8 +105,8 @@ public class EmployeeController {
         log.info(employee.toString());
 
         Long empId = (Long) request.getSession().getAttribute("employee");
-        employee.setUpdateTime(LocalDateTime.now());
-        employee.setUpdateUser(empId);
+//        employee.setUpdateTime(LocalDateTime.now());
+//        employee.setUpdateUser(empId);
         employeeService.updateById(employee);
         return R.success("员工信息修改成功");
     }
