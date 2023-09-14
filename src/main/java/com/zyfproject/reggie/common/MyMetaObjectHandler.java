@@ -12,16 +12,16 @@ import java.time.LocalDateTime;
  */
 @Component
 @Slf4j
-public class MyMetaObjectHandler  implements MetaObjectHandler {
+public class MyMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         log.info("公共字段自动填充[insert]...");
 
         log.info(metaObject.toString());
         metaObject.setValue("createTime", LocalDateTime.now());
-        metaObject.setValue("updateTime",LocalDateTime.now());
-        metaObject.setValue("creataUser",new Long(1));
-        metaObject.setValue("creataUser",new Long(1));
+        metaObject.setValue("updateTime", LocalDateTime.now());
+        metaObject.setValue("updateUser", BaseContext.getCurrentId());
+        metaObject.setValue("createUser", BaseContext.getCurrentId());
 
     }
 
@@ -32,7 +32,7 @@ public class MyMetaObjectHandler  implements MetaObjectHandler {
         long id = Thread.currentThread().getId();
         log.info("线程id为：{}", id);
 
-        metaObject.setValue("updateTime",LocalDateTime.now());
-        metaObject.setValue("updateUser",new Long(1  ));
+        metaObject.setValue("updateTime", LocalDateTime.now());
+        metaObject.setValue("updateUser", BaseContext.getCurrentId());
     }
 }

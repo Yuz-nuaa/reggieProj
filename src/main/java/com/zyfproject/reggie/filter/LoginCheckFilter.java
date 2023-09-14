@@ -1,6 +1,7 @@
 package com.zyfproject.reggie.filter;
 
 import com.alibaba.fastjson.JSON;
+import com.zyfproject.reggie.common.BaseContext;
 import com.zyfproject.reggie.common.R;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.AntPathMatcher;
@@ -46,7 +47,8 @@ public class LoginCheckFilter implements Filter {
         if(request.getSession().getAttribute("employee") != null){
             log.info("User has login:{}", requestURI);
             long id = Thread.currentThread().getId();
-            log.info("Thread id is: {}", id);
+            Long empId= (Long)request.getSession().getAttribute("employee");
+            BaseContext.setCurrentId(empId);
             filterChain.doFilter(request, response);
             return;
         }
