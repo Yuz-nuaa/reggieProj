@@ -38,7 +38,7 @@ public class CategoryController {
      * @return
      */
     @GetMapping("/page")
-    public R<String> page(int page,int pageSize){
+    public R<Page> page(int page,int pageSize){
         // 分页构造器
         Page<Category> pageInfo = new Page<>(page, pageSize);
         // 条件构造器
@@ -46,6 +46,6 @@ public class CategoryController {
         // 添加排序条件，根据sort进行排序
         queryWrapper.orderByAsc(Category::getSort);
         categoryService.page(pageInfo,queryWrapper);
-        return null;
+        return R.success(pageInfo);
     }
 }
